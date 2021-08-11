@@ -6,6 +6,16 @@
 
 
 def fun_nearestodd(n):
-	return 0
+	if int(n) % 2 != 0:
+		return int(n)
+	elif n - float(int(n)) > 0.0: 
+		return int(n) + 1
+	return int(n) - 1
 
-
+# print(fun_nearestodd(4.1)) # 5
+# print(fun_nearestodd(4.9)) # 5
+# print(fun_nearestodd(4.0)) # 3
+# print(fun_nearestodd(3.0)) # 3
+# print(fun_nearestodd(3.1)) # 3
+# print(fun_nearestodd(3.9)) # 3
+# print(fun_nearestodd(0)) # 1
