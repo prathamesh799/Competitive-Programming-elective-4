@@ -33,6 +33,45 @@
 # into a sorted hand.
 # Hint: Also, remember to use % to get the one's digit, and use //= to get rid of the one's digit.
 
+def handtodice(hand):
+	l = []
+	while hand>0:
+		l.append(hand%10)
+		hand //= 10
+	l = l[::-1]
+	return tuple(l)
+
+def dicetoorderedhand(a, b, c):
+	l = [a,b,c]
+	l.sort(reverse=True)
+	return l[0]*100 + l[1]*10 + l[2]
+
+def removeNonRepeated(t):
+	temp = {}
+	t = list(t)
+	for i in range(len(t)):
+		temp[t[i]] = temp.get(t[i], 0) + 1
+	for k, v in temp.items():
+		if v == 1:
+			t.remove(k)
+	return t
+
 def playstep2(hand, dice):
-	# your code goes here
-	pass
+	hc = sorted(handtodice(hand))
+	if len(set(hc)) != len(hc):
+		hc = removeNonRepeated(hc) # hc is list
+		# print('after removing', hc)
+		# if hc[0] != hc[1] and hc[1] == hc[2]:
+		# 	hc = (hc[1], hc[2])
+		# else:
+		# 	hc = (hc[0], hc[1])
+		hc.append(dice%10)
+		dice //= 10
+	else:
+		hc[0] = dice % 10
+		dice //= 10
+		hc[1] = dice % 10
+		dice //= 10
+	return dicetoorderedhand(hc[0], hc[1], hc[2]), dice
+
+# print(playstep2(544, 456))
