@@ -5,5 +5,5 @@
 
 
 def trianglearea(s1, s2, s3):
-	# your code goes here
-	pass
+	s = (s1 + s2 + s3)/2
+	return (s * (s-s1) * (s-s2) * (s-s3))**0.5
