@@ -22,8 +22,6 @@ def power(a, b):
 # print(power(2,5))
 
 def powerSum(n, k):
-    # Your code goes here...
-    # print([power(i, k) for i in range(1,n+1)])
     return sum([power(i, k) for i in range(1,n+1)])
 
 # Write your own test cases here...
