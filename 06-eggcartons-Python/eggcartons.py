@@ -5,5 +5,24 @@
 
 
 def fun_eggcartons(eggs):
-	# your code goes here
-	return 1
+	print(eggs)
+	if eggs == 0:
+		return 0
+	elif eggs <= 12:
+		return 1
+	elif eggs % 12 == 0:
+		return eggs // 12
+	else:
+		return eggs // 12 + 1
+
+print(fun_eggcartons(0)) #0
+print(fun_eggcartons(11)) #1
+print(fun_eggcartons(12)) #1
+print(fun_eggcartons(13)) #2
+print(fun_eggcartons(24)) #2
+print(fun_eggcartons(25)) #3
+print(fun_eggcartons(35)) #3
+print(fun_eggcartons(36)) #3
+print(fun_eggcartons(37)) #4
+
+
