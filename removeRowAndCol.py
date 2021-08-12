@@ -23,6 +23,24 @@
 
 def removeRowAndCol(L, row, col):
     # Your code goes here...
-    pass
+    L.pop(row)
+    for l in range(len(L)):
+        L[l].pop(col)
+    return L
 
-# Write your own test cases.
+q1 = [ [ 2, 3, 4, 5],
+  [ 8, 7, 6, 5],
+  [ 0, 1, 2, 3] ]
+
+a1 = [ [ 2, 3, 5],
+  [ 0, 1, 3] ]
+
+q2 = [[2,3,4,5,6],
+[4,5,6,7,8],
+[7,6,5,4,3]]
+
+a2 = [[4,5,6,7], [7,6,5,4]]
+
+assert(removeRowAndCol(q1, 1, 2) == a1)
+assert(removeRowAndCol(q2, 0, 4) == a2)
+print('Passed!!')
