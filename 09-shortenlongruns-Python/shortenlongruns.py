@@ -11,4 +11,23 @@
 
 def shortenlongruns(L, k):
 	# Your code goes here
-	pass
+	to_pop = []
+	pe = L[0]
+	tk = 1
+	for i in range(1, len(L)):
+		if L[i] != pe:
+			pe = L[i]
+			tk = 1
+		else:
+			tk += 1
+			if tk >= k:
+				to_pop.append(i)
+				# tk -= 1
+	# print(to_pop)
+	for each in to_pop[::-1]:
+		L.pop(each)
+	# print(L)
+	return L
+
+# print(shortenlongruns([2, 3, 5, 5, 5, 3], 3))
+# print(shortenlongruns([2, 3, 5, 5, 5, 3], 2))
