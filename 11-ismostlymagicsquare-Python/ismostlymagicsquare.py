@@ -14,5 +14,33 @@
 # Each row and each column add to 3, but one diagonal adds to 2 and the other to 4.
 
 def ismostlymagicsquare(a):
-	# Your code goes here
-	pass
+	# sum of rows must be same
+	l = len(a)
+	rs = sum(a[0])
+	for row in range(1, l):
+		if sum(a[row]) != rs:
+			return False
+
+	# sum of column should be same
+	# first loop goes through all column nums
+	
+	cs = 0
+	for i in range(len(a[0])):
+		# adds up all rows of i column
+		col_vals = [a[k][i] for k in range(l)]
+		ps = sum(col_vals)
+		if cs == 0:
+			cs = ps
+		elif cs != ps:
+			return False
+
+	# sum of diagonal 1 and diagonal 2 must be same
+	# diagonal 1 has (0,0), (1,1), (2,2), (3,3)
+	dg1 = [a[i][i] for i in range(l)]
+
+	# diagonal 2 has (0,3), (1,2), (2,1), (3,0)
+	dg2 = [a[i][l-i-1] for i in range(len(a))]
+
+	if sum(dg1) != sum(dg2):
+		return False
+	return True
