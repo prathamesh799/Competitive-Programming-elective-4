@@ -12,8 +12,8 @@ class HashTable(object):
         # Hash Value = (ASCII Value of First Letter * 100) + ASCII Value of Second Letter 
         # Your code goes here
         ind = self.calculate_hash_value(string)
-        if self.table[ind] == None:
-            self.table[ind] = string
+        # if self.table[ind] == None:
+        self.table[ind] = string
         
     def lookup(self, string):
         """Return the hash value if the
@@ -22,10 +22,10 @@ class HashTable(object):
         # Your code goes here
         ind = self.calculate_hash_value(string)
         res = self.table[ind]
-        return ind if res != None else -1
+        return ind if res != None and res == string else -1
 
     def calculate_hash_value(self, string):
         """Helper function to calulate a
         hash value from a string."""
         # Your code goes here
-        return ord(string[0]) * 100 + (ord(string[1]))
+        return ord(string[0]) * 100 + ord(string[1])
