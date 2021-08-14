@@ -6,5 +6,13 @@
 # And so this returns the list [8, 10, 12, 15].
 
 def multipolynomials(p1, p2):
-	# Your code goes here
-	pass
+	p1, p2 = p1[::-1], p2[::-1]
+	# method 1 using a list to keep track of powers
+	# here the sum of indexes represent power
+	# ex: 1 + x + x2 , 2+2x+2x^2 
+	eq = [0]*(len(p1) + len(p2) - 1)
+	for i in range(len(p1)):
+		for j in range(len(p2)):
+			eq[i+j] = eq[i+j] + p1[i] * p2[j]
+	return eq[::-1]
+	
