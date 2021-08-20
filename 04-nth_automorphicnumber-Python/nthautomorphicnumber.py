@@ -21,20 +21,34 @@ def isAutomorphic(n):
 
 # print([i for i in range(1000) if isAutomorphic(i)])
 def nthautomorphicnumbers(n):
+	temp = n
 	# Your code goes here
 	num = 0
-	pot = [1,5,6]
+	pot = [0,1,5,6]
+	if n < 4:
+		return pot[n]
 	while n > 0:
-		ns = str(num)
-		if num > 10 and int(ns[1:]) not in pot:
-			num += 1
-			continue
-		if isAutomorphic(num):
-			pot.append(num)
-			# print(num)
-			n -= 1
-		num += 1
-	return num - 1
+		# print('pot', pot)
+		found = False
+		j = 1
+		while True:
+			found = False
+			for i in range(len(pot)):
+				t_num = int(str(j) + str(pot[i]))
+				if t_num not in pot and isAutomorphic(t_num):
+					pot.append(t_num)
+					n -= 1
+					found = True
+				if found == True:
+					break
+			if found == True:
+				break
+			j += 1
+		pot.sort()
+	print(pot)
+	return pot[temp]
 
-# print(nthautomorphicnumbers(20))
+print(nthautomorphicnumbers(25))
+# for i in range(20):
+# 	print(nthautomorphicnumbers(i))
 # print(isAutomorphic(81787109376))
