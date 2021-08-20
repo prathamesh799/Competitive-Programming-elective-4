@@ -23,8 +23,18 @@ def isAutomorphic(n):
 def nthautomorphicnumbers(n):
 	# Your code goes here
 	num = 0
+	pot = [1,5,6]
 	while n > 0:
+		ns = str(num)
+		if num > 10 and int(ns[1:]) not in pot:
+			num += 1
+			continue
 		if isAutomorphic(num):
+			pot.append(num)
+			# print(num)
 			n -= 1
 		num += 1
 	return num - 1
+
+# print(nthautomorphicnumbers(20))
+# print(isAutomorphic(81787109376))
