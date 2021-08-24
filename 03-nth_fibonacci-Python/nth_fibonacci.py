@@ -5,8 +5,8 @@
 # so F(0)=F(1)=1, and F(2)=2. With this in mind, write the function 
 # nthfibonaccinumber(n) that takes a non-negative int n and returns the nth Fibonacci number.
 
-
-
 def fun_nthfibonaccinumber(n):
 	# your code goes Here
-	return 0
+	if n == 1 or n == 0:
+		return 1
+	return fun_nthfibonaccinumber(n-1) + fun_nthfibonaccinumber(n-2)
