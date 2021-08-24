@@ -10,7 +10,25 @@
 #  assert(fun_isfactorish(420) == False) # 420 has a 0 (0 is not a factor)
 #  assert(fun_isfactorish(42) == False) # 42 has a leading 0 (only 2 unique digits)
 
+def hasThreeUniques(n):
+	l = set()
+	while n > 0:
+		l.add(n % 10)
+		n //= 10
+	return len(l) == 3
 
 def fun_isfactorish(n):
-	return False
-
+	n = -n if n < 0 else n
+	if not n > 99 and n < 999:
+		return False
+	if not hasThreeUniques(n):
+		return False
+	temp = n
+	while n > 0:
+		rem = n % 10
+		if rem == 0:
+			return False
+		if not temp % (n % 10) == 0:
+			return False
+		n //= 10
+	return True
