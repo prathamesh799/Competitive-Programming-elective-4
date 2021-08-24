@@ -19,13 +19,9 @@
 
 def rec_bin(L, v, res, lo, hi):
 	mid = (lo + hi) // 2
-	if lo >= hi:
-		res.append((mid, L[mid]))
-		return res
-	if L[mid] == v:
-		res.append((mid, L[mid]))
-		return res
 	res.append((mid, L[mid]))
+	if L[mid] == v or lo >= hi:
+		return res	
 	if L[mid] < v:
 		lo = mid + 1
 	else:
