@@ -12,6 +12,13 @@
 
 def areAnagrams(s1, s2):
     # Your code goes here...
-    pass
-
+    d1, d2 = {}, {}
+    for ch in s1.lower():
+        d1[ch] = d1.get(ch, 0) + 1
+    for ch in s2.lower():
+        d2[ch] = d2.get(ch, 0) + 1        
+    return d1 == d2
 # write your test cases here...
+assert(areAnagrams('Aba', 'ABA')==True)
+assert(areAnagrams('celebrate', 'treecaleb')==True)
+print('cases passed')
