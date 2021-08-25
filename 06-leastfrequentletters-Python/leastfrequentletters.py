@@ -7,6 +7,17 @@
 # yet covered lists, sets, maps, or efficiency, you are not expected to write the most efficient solution. Finally, 
 # if s does not contain any alphabetic characters, the result should be the empty string ("")
 
+from string import ascii_letters as letters
+
 def leastfrequentletters(s):
 	# Your code goes here
-	pass
+	d = {}
+	res = ""
+	for ch in s.lower():
+		if ch in letters:
+			d[ch] = d.get(ch, 0) + 1
+	least_rep = min(d.values()) if len(d.values()) > 0 else 0
+	for k,v in d.items():
+		if v == least_rep:
+			res = res + k
+	return res
