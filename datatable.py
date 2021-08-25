@@ -24,14 +24,40 @@
 # the class DataColumn so the following test function passes 
 # (without hardcoding any test cases):
 
-class DataColumn: 
-    pass
+class DataColumn:
+    def __init__(self, col) -> None:
+        self.label = col[0]
+        col = col[1:]
+        self.data = list(map(int, col))
+
+    def average(self):
+        data = self.data
+        return sum(data) // len(data)
 
 class DataTable:
-    pass
+    def __init__(self, data) -> None:
+        data = data.strip()
+        self.rows = data.split('\n')
+        for i in range(len(self.rows)):
+            self.rows[i] = self.rows[i].strip().split(',')
+        # print('rows', self.rows)
+        self.cols = []
+        for i in range(len(self.rows[0])):
+            col = []
+            for j in range(len(self.rows)):
+                col.append(self.rows[j][i])
+            self.cols.append(col)
+        # print('cols',self.cols)
+        self.cols_ = [DataColumn(each) for each in self.cols[1:]]
+    
+    def getColumn(self, ind):
+        return self.cols_[ind-1]
+
+    def getDims(self):
+        return len(self.rows), len(self.cols)
 
 def almostEqual(a, b):
-    return True
+    return a == b
 
 def testDataTableAndDataColumnClasses():
     print('Testing DataTable and DataColumn classes...', end='')
@@ -42,10 +68,12 @@ def testDataTableAndDataColumnClasses():
     '''
     dataTable = DataTable(csvData)
     rows, cols = dataTable.getDims()
+    # print(rows, cols)
     assert((rows == 3) and (cols == 5))
 
     column3 = dataTable.getColumn(3)
     assert(isinstance(column3, DataColumn))
+    # print('col 3 label', column3.label)
     assert(column3.label == 'Quiz1')
     assert(column3.data == [82, 80])
     assert(almostEqual(column3.average(), 81))
@@ -56,3 +84,5 @@ def testDataTableAndDataColumnClasses():
     assert(column4.data == [92, 100])
     assert(almostEqual(column4.average(), 96))
     print('All test cases passed....!')
+
+print(testDataTableAndDataColumnClasses())
