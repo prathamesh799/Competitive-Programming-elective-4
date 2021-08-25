@@ -9,4 +9,17 @@
 
 def limitedPowerSet(n, k):
     # Your code goes here...
-    pass
+    elems = [i for i in range(1, n+1)]
+    s_len = 0
+    res = [{}]
+    while k > 1:
+        for z in range(len(elems)-s_len):
+            if k == 1:
+                break
+            s = set(elems[z:z+s_len+1])
+            res.append(s)
+            k -= 1
+        s_len += 1
+    return res
+
+print(limitedPowerSet(5,7))
