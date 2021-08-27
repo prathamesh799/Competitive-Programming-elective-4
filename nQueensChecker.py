@@ -19,18 +19,18 @@ def isSafe(a, row, col):
     n = len(a)
     # condition 2.1
     for j in range(col):
-        print('col=', col, j)
+        # print('col=', col, j)
         if [row][j] == 1:
             return False
     
     # condition 2.2
-    for x in range(col, -1, -1):
+    for x in range(row, -1, -1):
         for y in range(col, -1, -1):
             if a[x][y] == 1:
                 return False
     
     # condition 2.3
-    for x in range(row, n):
+    for x in range(row, n,1):
         for y in range(col, -1, -1):
             if a[x][y] == 1:
                 return False
@@ -38,23 +38,30 @@ def isSafe(a, row, col):
 
 def rec_check(a, col):
     n = len(a)
-    print(col)
     if col >= n:
         return True
     for i in range(n):
         if isSafe(a, i, col):
-            a[i][col] = 1
+            # a[i][col] = 1
             if rec_check(a, col+1) == True:
                 return True
-            a[i][col] = 0
+            # a[i][col] = 0
     return False
 
 
 def nQueensChecker(a):
     # Your code goes here...
-    return a if rec_check(a, 0) == True else False
+    return True if rec_check(a, 0) == True else False
     
-
-print(nQueensChecker([[0 for i in range(3)] for j in range(3)]))
-print(nQueensChecker([[0 for i in range(4)] for j in range(4)]))
-print(nQueensChecker([[0 for i in range(5)] for j in range(5)]))
+nq_3 = [[]]
+nq_4 = [[0,1,0,0], [0,0,0,1], [1,0,0,0], [0,0,1,0]]
+nq_5 = [
+   [0, 0, 0, 1, 0],
+   [0, 1, 0, 0, 0],
+   [0, 0, 0, 0, 1],
+   [0, 0, 1, 0, 0],
+   [1, 0, 0, 0, 0]
+]
+# print(nQueensChecker(nq_3))
+print(nQueensChecker(nq_4))
+print(nQueensChecker(nq_5))
