@@ -15,43 +15,39 @@
     - Check lower left diagonal, if present return False
 3. If safe place queen and check if issafe for col+1
 """
-def isSafe(a, row, col):
-    n = len(a)
-    # condition 2.1
-    for j in range(col):
-        # print('col=', col, j)
-        if [row][j] == 1:
-            return False
-    
-    # condition 2.2
-    for x in range(row, -1, -1):
-        for y in range(col, -1, -1):
-            if a[x][y] == 1:
-                return False
-    
-    # condition 2.3
-    for x in range(row, n,1):
-        for y in range(col, -1, -1):
-            if a[x][y] == 1:
-                return False
-    return True
+def canqueenattack(qR, qC, oR, oC):
+	# Your code goes here
+	r = qR - oR
+	c = qC - oC
+	if r == c:
+		return True
 
-def rec_check(a, col):
-    n = len(a)
-    if col >= n:
-        return True
-    for i in range(n):
-        if isSafe(a, i, col):
-            # a[i][col] = 1
-            if rec_check(a, col+1) == True:
-                return True
-            # a[i][col] = 0
-    return False
+	elif qR == oR:
+		return True
+
+	elif qC == oC:
+		return False
+		
+	return False
 
 
 def nQueensChecker(a):
-    # Your code goes here...
-    return True if rec_check(a, 0) == True else False
+    l = []
+    for i in range(N):
+        for j in range(N):
+            if a[i][j] == 1:
+                l.append([i,j])
+   
+    for i in range(len(l)):
+        
+        for j in range(i+1,len(l)):
+            if canqueenattack(l[i][0],l[i][1],l[j][0],l[j][1]) == True:
+                return False
+    return True
+a =[[0,0,1,0],[1,0,0,0],[0,0,0,1],[0,1,0,0]]
+
+N = len(a)
+b = [[0]*N for _ in range(N)]
     
 nq_3 = [[]]
 nq_4 = [[0,1,0,0], [0,0,0,1], [1,0,0,0], [0,0,1,0]]
