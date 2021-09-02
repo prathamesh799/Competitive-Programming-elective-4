@@ -31,14 +31,138 @@
 # does step2 twice (by calling playStep2, which you already wrote), and then it computes the score (by 
 # calling score, which you already wrote). The function should return two values -- the resulting hand 
 # and the score for that hand. For example:
-# assert(bonusPlayThreeDiceYahtzee(2312413) == (432, 4))
-# assert(bonusPlayThreeDiceYahtzee(2315413) == (532, 5))
-# assert(bonusPlayThreeDiceYahtzee(2345413) == (443, 18))
-# assert(bonusPlayThreeDiceYahtzee(2633413) == (633, 16))
-# assert(bonusPlayThreeDiceYahtzee(2333413) == (333, 29))
-# assert(bonusPlayThreeDiceYahtzee(2333555) == (555, 35))
 
+def handlist(dice):
+	alist = [int(i) for i in str(dice)]
+	handlist_ = alist[-3:]
+	return handlist_
+
+def dicelist(dice):
+	alist = [int(i) for i in str(dice)]
+	dicelist_ = alist[:4]
+	return dicelist_
+
+def score(roll):
+	rolllist = [int(i) for i in str(roll)]
+	if rolllist.count(rolllist[0]) ==3:
+		score = 20 + (3*int(rolllist[0]))
+	elif rolllist.count(rolllist[0]) ==2:
+		score = 10 + (2*int(rolllist[0]))
+	elif rolllist.count(rolllist[1]) ==2:
+		score = 10 + (2*int(rolllist[1]))
+	elif rolllist.count(rolllist[2]) ==2:
+		score = 10 + (2*int(rolllist[2]))
+	else:
+		score = max(rolllist)
+	return score
+
+def checkMatching(roll):
+	rolllist = [int(i) for i in str(roll)]
+	if rolllist.count(rolllist[0]) ==3:
+		return '3'
+	elif rolllist.count(rolllist[0]) ==2:
+		return '2'
+	elif rolllist.count(rolllist[1]) ==2:
+		return '2'
+	elif rolllist.count(rolllist[2]) ==2:
+		return '2'
+	else:
+		return '1'
+
+def twoMatching(roll, dice):
+	rolllist = [int(i) for i in str(roll)] #[4,4,3]
+	dicelist_ = dicelist(dice) #[2,3,4,5]
+	res = []
+	for i in rolllist:
+		if rolllist.count(i) ==2:
+			res.append(i)
+			res.append(i)
+	res.append(dicelist_[-1])
+	dicelist_.pop()
+	roll = int(''.join(str(i) for i in res))
+	if checkMatching(roll) == '3':
+		return int(roll), score(roll)
+	if checkMatching(roll) == '2':
+		rolllist = [int(i) for i in str(roll)] 
+		# dicelist_ = dicelist(dice) 
+		res2 = []
+		for i in rolllist:
+			if rolllist.count(i) ==2:
+				res2.append(i)
+				res2.append(i)
+		res2.append(dicelist_[-1])
+		dicelist_.pop()
+		res2.sort(reverse = True)
+		roll = int(''.join(str(i) for i in res2))
+		return roll
+	if checkMatching(roll) == '1':
+		res2 = []
+		res2.append(max(res))	#[5]
+		res2.append(dicelist_[-1])	#[5,3]
+		res2.append(dicelist_[-2])	#[5,3,2]
+		dicelist_.pop()				#[2,]
+		dicelist_.pop()				#[]
+		res2.sort(reverse = True)
+		roll = int(''.join(str(i) for i in res2)) #532
+		return roll
+
+def noMatching(roll, dice):
+	rolllist = [int(i) for i in str(roll)] #[4,1,3]
+	dicelist_ = dicelist(dice) #[2,6,3,3]
+	res = []
+	res.append(max(rolllist))	#[4]
+	res.append(dicelist_[-1])	#[4,3]
+	res.append(dicelist_[-2])	#[4,3,3]
+	dicelist_.pop()				#[2,6,3]
+	dicelist_.pop()				#[2,6]
+	roll = int(''.join(str(i) for i in res)) #433
+	if checkMatching(roll) == '3':
+		return int(roll), score(roll)
+	if checkMatching(roll) == '2':
+		rolllist = [int(i) for i in str(roll)] #[4,3,3]
+		# dicelist_ = dicelist(dice) 
+		res2 = []
+		for i in rolllist:
+			if rolllist.count(i) ==2:
+				res2.append(i)					#[3,3]
+		res2.append(dicelist_[-1])
+		dicelist_.pop()
+		res2.sort(reverse = True)
+		roll = int(''.join(str(i) for i in res2))
+		return roll
+	if checkMatching(roll) == '1':
+		res2 = []
+		res2.append(max(res))	#[5]
+		res2.append(dicelist_[-1])	#[5,3]
+		res2.append(dicelist_[-2])	#[5,3,2]
+		dicelist_.pop()				#[2,]
+		dicelist_.pop()				#[]
+		res2.sort(reverse = True)
+		roll = int(''.join(str(i) for i in res2)) #532
+		return roll
 
 def bonusplaythreediceyahtzee(dice):
-	# Your code goes here
-	pass
+	handlist_ = handlist(dice)
+	dicelist_ = dicelist(dice)
+	roll = dice%1000
+	if checkMatching(roll) == '3':
+		return int(roll), score(roll)
+	if checkMatching(roll) == '2':
+		roll = twoMatching(roll, dice)
+		return roll, score(roll)
+	if checkMatching(roll) == '1':
+		roll = noMatching(roll,dice)
+		return roll, score(roll)
+
+	# return score(432), score(443), score(444), checkMatching(432), checkMatching(443), checkMatching(444),
+
+
+print(bonusplaythreediceyahtzee(2633413))
+
+# assert(bonusPlayThreeDiceYahtzee(2312413) == (432, 4))
+# assert(bonusPlayThreeDiceYahtzee(2315413) == (532, 5))
+# assert(bonusPlayThreeDiceYahtzee(2345413) == (443, 18))--
+# assert(bonusPlayThreeDiceYahtzee(2633413) == (633, 16))--
+# assert(bonusPlayThreeDiceYahtzee(2333413) == (333, 29))
+# assert(bonusPlayThreeDiceYahtzee(2333555) == (555, 35))
+# print(noMatching(413, 2345413))
